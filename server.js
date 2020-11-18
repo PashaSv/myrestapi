@@ -65,6 +65,14 @@ app.delete('/api/products/:id', (req, res) => {
   res.status(200).json(products)
 })
 
+app.post('/api/products', (req, res) => {
+  let product = req.body
+  product.id = products.length + 1
+  products.push(product)
+  res.send(products)
+  console.log(products)
+})
+
 app.listen(8081, () => {
     console.log('server start 8081')
 })

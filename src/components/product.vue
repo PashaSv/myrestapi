@@ -56,6 +56,9 @@ import axios from "axios";
                     }
                 )
                 .then(res => {
+                    this.form = false
+                    this.name = ''
+                    this.text = ''
                     this.$emit('products', res.data)
                 })
             },

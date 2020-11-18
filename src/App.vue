@@ -6,6 +6,12 @@
       :key="product.id" 
       @products="getProducts"
     />
+
+    <form @submit.prevent="addProduct">
+      <input v-model="name" type="text" placeholder="input name" required>
+      <input v-model="text" type="text" placeholder="input text" required>
+      <button type="submit">Send</button>
+    </form>
   </div>
 </template>
 
@@ -18,7 +24,9 @@ export default {
     return {
       products: [
         
-      ]
+      ],
+      name: '',
+      text: '',
     }
   },
   mounted () {
@@ -29,6 +37,18 @@ export default {
   methods: {
     getProducts (data) {
       this.products = data
+    },
+    addProduct () {
+      let product = {
+        name: this.name,
+        text: this.text
+      }
+      axios.post('http://localhost:8081/api/products', product)
+      .then(res => {
+        this.name = ''
+        this.text = ''
+        this.products = res.data
+      })
     }
   },
   components: {
@@ -46,4 +66,5 @@ export default {
   padding: 5%;
   text-align: center;
 }
+
 </style>
